@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import DEFAULT_USER from "@/constants/user";
 
-//todo 查阅redux的官网 弄清楚写法 （有点忘记了）
-
 // Redux 初始状态
 /**
  * 登录用户全局状态

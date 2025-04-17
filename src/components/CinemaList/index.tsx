@@ -1,10 +1,12 @@
 "use client"
 
-import {Button, List, Pagination, Row, Select, Space, Tag} from "antd";
+import {Button, Flex, List, Pagination, Row, Select, Space, Tag} from "antd";
 import Title from "antd/es/typography/Title";
 import {listCinemaVoByPageUsingPost} from "@/api/cinemaController";
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import Search from "antd/es/input/Search";
+import {SearchProps} from "antd/lib/input";
 
 interface Props {
     cinemaAddress: string
@@ -15,6 +17,8 @@ interface Props {
 const CinemaList = (props: Props) => {
 
     const {cinemaAddress, cinemaTags,cinemaTitle} = props
+
+    const [cinema, setCinema] = useState("")
 
     const [paginationConfig, setPaginationConfig] = useState({
         current: 1,    // 当前页
@@ -31,7 +35,8 @@ const CinemaList = (props: Props) => {
                 pageSize: paginationConfig.pageSize,
                 cinemaAddress,
                 cinemaTags,
-                cinemaTitle
+                cinemaTitle,
+                searchText:cinema
             })
             setCinemaList(res.data.records)
             setPaginationConfig(prevConfig => ({
@@ -58,31 +63,23 @@ const CinemaList = (props: Props) => {
 
     useEffect(() => {
         loadData();
-    }, [cinemaAddress,cinemaTags,cinemaTitle,paginationConfig.current,paginationConfig.pageSize]);
+    }, [cinemaAddress,cinemaTags,cinemaTitle,paginationConfig.current,paginationConfig.pageSize,cinema]);
+
+    const onSearch: SearchProps['onSearch'] = (value, _e, info) => setCinema(value);
 
     return (
         <>
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16}}>
-                <Title level={4} style={{borderLeft: "4px solid skyblue", paddingLeft: 8}}>影院列表</Title>
-                <Select
-                    showSearch={false}
-                    optionFilterProp="label"
-                    defaultValue={"minPrice"}
-                    onChange={onChange}
-                    style={{width: 100, background: 'transparent'}}
-                    options={[
-                        {value: 'minPrice', label: '价格低'},
-                        {value: 'minDistance', label: '距离近'},
-                    ]}
-                />
+                    <Title level={4} style={{borderLeft: "4px solid skyblue", paddingLeft: 8}}>影院列表</Title>
+                    <Search placeholder="请输入影院名称或地址" onSearch={onSearch} style={{width: 200}}/>
             </div>
             <List
                 itemLayout="horizontal"
                 dataSource={cinemaList}
                 renderItem={(item, index) => (
                     <List.Item extra={
-                        <p style={{color: "red"}}>{item.startingPrice}元起
-                            <Button type="primary" style={{marginLeft: 16}} danger={true}
+                        <p style={{color: "skyblue"}}>{item.startingPrice}元起
+                            <Button type="primary" style={{marginLeft: 16}}
                                     shape={"round"}><Link href={`/cinemaDetail/${item.id}`}>选座购票</Link></Button></p>
                     }>
                         <List.Item.Meta

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginUser from "@/stores/loginUser";
+import movieOrder from "@/stores/movieOrder";
 
 const store = configureStore({
     reducer: {
         // 在这里存放状态
-        loginUser
+        loginUser,
+        movieOrder
     },
 });
 

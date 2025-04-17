@@ -8,6 +8,7 @@ import * as cinemaMovieController from "./cinemaMovieController";
 import * as cinemamoviescheduleController from "./cinemamoviescheduleController";
 import * as fileController from "./fileController";
 import * as movieController from "./movieController";
+import * as movieorderController from "./movieorderController";
 import * as userController from "./userController";
 export default {
   wxMpController,
@@ -16,5 +17,6 @@ export default {
   cinemamoviescheduleController,
   fileController,
   movieController,
+  movieorderController,
   userController,
 };

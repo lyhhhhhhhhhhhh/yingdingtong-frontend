@@ -120,7 +120,7 @@ const BasicLayout: React.FC = ({ children }) => {
             <Content style={{ flex: 1, padding: '0 48px', backgroundColor: "white" }}>
                 {children}
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
+            <Footer style={{maxWidth:'100%',textAlign: 'center',left:0, width: "1200px",margin:"0",height:'50px'}}>
                 By: LKING
             </Footer>
         </Layout>

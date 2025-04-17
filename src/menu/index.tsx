@@ -19,17 +19,4 @@ export const item = [
         label: <Link href={"/cinema"}>影院</Link>,
         icon: <MovieIcon type={"icon-yingyuan"}/>,
     },
-
-    {
-        key: '/testTable',
-        label: <Link href={"/testTable"}>测试表格页面</Link>,
-        icon: <TableOutlined/>
-    },
-    {
-        key: '/testSelectSeat',
-        label: <Link href={"/testSelectSeat"}>测试电影选座页面</Link>,
-        icon: <SelectOutlined/>
-    }
-
-
 ]

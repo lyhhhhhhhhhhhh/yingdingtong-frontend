@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import {Avatar, Divider, Flex, List, Typography} from 'antd';
+import {List, Space} from 'antd';
 import Title from "antd/es/typography/Title";
 
 interface Props {
@@ -24,12 +24,11 @@ const MovieList = (props: Props) => {
                 <List.Item>
                     <List.Item.Meta
                         title={
-                            <Flex  align="center">
+                            <Space  align="center">
                                 <Title level={5} style={{
                                     marginRight: 8, color: index < 3 ? 'red' : 'inherit'
-                                }}>{index + 1}</Title> <a
-                                href="https://ant.design"> {item.movieTitle}</a>
-                            </Flex>
+                                }}>{index + 1}<a href={`/movie/${item.id}`}> {item.movieTitle}</a></Title>
+                            </Space>
                         }
                     />
                 </List.Item>

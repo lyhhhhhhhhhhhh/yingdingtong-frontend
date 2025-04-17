@@ -35,6 +35,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseMovieorderVO_ = {
+    code?: number;
+    data?: MovieorderVO;
+    message?: string;
+  };
+
   type BaseResponseMovieVO_ = {
     code?: number;
     data?: MovieVO;
@@ -80,6 +86,18 @@ declare namespace API {
   type BaseResponsePageMovie_ = {
     code?: number;
     data?: PageMovie_;
+    message?: string;
+  };
+
+  type BaseResponsePageMovieorder_ = {
+    code?: number;
+    data?: PageMovieorder_;
+    message?: string;
+  };
+
+  type BaseResponsePageMovieorderVO_ = {
+    code?: number;
+    data?: PageMovieorderVO_;
     message?: string;
   };
 
@@ -205,6 +223,7 @@ declare namespace API {
     movieId?: number;
     movieLanguage?: string;
     moviePrice?: number;
+    seatInfo?: Record<string, any>;
     showTime?: string;
     updateTime?: string;
     userId?: number;
@@ -267,6 +286,7 @@ declare namespace API {
     movieId?: number;
     movieLanguage?: string;
     moviePrice?: number;
+    seatInfo?: Record<string, any>;
     showTime?: string;
     updateTime?: string;
     user?: UserVO;
@@ -347,6 +367,11 @@ declare namespace API {
     id?: number;
   };
 
+  type getMovieorderVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
   type getMovieVOByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -408,6 +433,109 @@ declare namespace API {
     movieSynopsis?: string;
     movieTitle?: string;
     movieType?: string;
+    userId?: number;
+  };
+
+  type Movieorder = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    createTime?: string;
+    id?: number;
+    isDeleted?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    seatInfo?: Record<string, any>;
+    totalPrice?: number;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type MovieorderAddRequest = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    id?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    seatInfo?: Record<string, any>;
+    totalPrice?: number;
+    userId?: number;
+  };
+
+  type MovieorderEditRequest = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    id?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    seatInfo?: Record<string, any>;
+    totalPrice?: number;
+    userId?: number;
+  };
+
+  type MovieorderQueryRequest = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    current?: number;
+    id?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    notId?: number;
+    pageSize?: number;
+    searchText?: string;
+    seatInfo?: Record<string, any>;
+    sortField?: string;
+    sortOrder?: string;
+    totalPrice?: number;
+    userId?: number;
+  };
+
+  type MovieorderUpdateRequest = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    id?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    seatInfo?: Record<string, any>;
+    totalPrice?: number;
+    userId?: number;
+  };
+
+  type MovieorderVO = {
+    cinemaHallName?: string;
+    cinemaId?: number;
+    cinemaName?: string;
+    createTime?: string;
+    id?: number;
+    isPayFor?: number;
+    movieId?: number;
+    movieName?: string;
+    movieSessionId?: number;
+    movieShowTime?: string;
+    movieVO?: MovieVO;
+    seatInfo?: Record<string, any>;
+    totalPrice?: number;
+    updateTime?: string;
+    user?: UserVO;
     userId?: number;
   };
 
@@ -548,6 +676,32 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: Movie[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageMovieorder_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Movieorder[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageMovieorderVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: MovieorderVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;

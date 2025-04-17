@@ -39,7 +39,7 @@ const CinemaDetail = async ({params}) => {
     return (
         <>
             <CinemaDetailTopBar cinema={cinema}/>
-            <SwiperTest cinemaId={cinemaId} MovieList={allMovieVOList}/>
+            <SwiperTest cinemaId={cinemaId} MovieList={allMovieVOList} />
         </>
     )
 }

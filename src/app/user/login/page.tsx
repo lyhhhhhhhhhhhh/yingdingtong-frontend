@@ -9,7 +9,7 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/stores";
 import {setLoginUser} from "@/stores/loginUser";
 
-const loginPage = () => {
+const LoginPage = () => {
 
     const router = useRouter(); // 使用 useRouter 钩子
 
@@ -39,7 +39,7 @@ const loginPage = () => {
         <LoginForm
             logo="/assets/logo.png"
             title="影订通-用户登录"
-            subTitle="全球最大的代码托管平台"
+            subTitle="一键式电影订票系统"
             onFinish={(values) => loginForm(values)}
         >
             <>
@@ -85,4 +85,4 @@ const loginPage = () => {
     );
 };
 
-export default loginPage;
+export default LoginPage;

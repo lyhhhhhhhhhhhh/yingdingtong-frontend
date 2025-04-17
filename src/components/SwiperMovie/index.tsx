@@ -22,7 +22,7 @@ interface Props {
     MovieList: any[];
 }
 
-const columns: TableProps<any>['columns'] = [
+const getColumns = (cinemaId: number): TableProps<any>['columns'] => [
     {
         title: '场次时间',
         dataIndex: 'showTime',
@@ -74,7 +74,7 @@ const columns: TableProps<any>['columns'] = [
                     shape="round"
                     style={{ backgroundColor: "#4CAF50", borderColor: "#4CAF50", color: "#fff" }}
                 >
-                    <Link href="/testSelectSeat">
+                    <Link href={`/SelectSeat/${record.id}?movieId=${record.movieId}&cinemaId=${cinemaId}`}>
                         选座购票
                     </Link>
                 </Button>
@@ -104,7 +104,6 @@ const CinemaDetailContent = ({ cinemaId, initialMovieId, MovieList }: Props) => 
     const [selectedMovieId, setSelectedMovieId] = useState(initialMovieId);
     const [movieSchedule, setMovieSchedule] = useState([]);
     const [selectData, setSelectData] = useState(dayjs().format("YYYY-MM-DD"));
-
     const loadData = async (movieId) => {
         try {
             const res = await listCinemamoviescheduleVoByPageUsingPost({
@@ -181,7 +180,7 @@ const CinemaDetailContent = ({ cinemaId, initialMovieId, MovieList }: Props) => 
             {/* 场次表格 */}
             <div className={styles.tableContainer}>
                 <Table
-                    columns={columns}
+                    columns={getColumns(cinemaId)}
                     dataSource={movieSchedule}
                     size="small"
                     bordered

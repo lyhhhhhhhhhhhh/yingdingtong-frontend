@@ -1,12 +1,14 @@
 "use client";
 
-import { listMovieVoByPageUsingPost } from "@/api/movieController";
-import { Col, Pagination, Radio, Row, Space } from "antd";
+import {listMovieVoByPageUsingPost} from "@/api/movieController";
+import {Col, Flex, Input, Pagination, Radio, Row, Space} from "antd";
 import MovieCard from "@/components/MovieCard";
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import DEFAULT_SORT_ORDER_BY from "@/constants/sortOrder";
 import MovieFilterPanel from "@/components/MovieSelect";
 import Link from "next/link";
+import Search from "antd/es/input/Search";
+import {SearchProps} from "antd/lib/input";
 
 const MoviesPage = () => {
     const [movieList, setMovieList] = useState([]);
@@ -18,6 +20,7 @@ const MoviesPage = () => {
     const [selectedType, setSelectedType] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
     const [selectedRegion, setSelectedRegion] = useState("");
+    const [searchMovie, setSearchMovie] = useState("")
 
     const loadData = useCallback(async () => {
         try {
@@ -29,18 +32,19 @@ const MoviesPage = () => {
                 movieType: selectedType,
                 movieYear: selectedYear,
                 movieRegion: selectedRegion,
+                searchText: searchMovie
             });
-            const { records, total } = res.data;
+            const {records, total} = res.data;
             setMovieList(records);
             setMovieTotal(total);
         } catch (e) {
             console.error("获取电影失败", e);
         }
-    }, [current, pageSize, orderBy, sortOrder, selectedType, selectedYear, selectedRegion]);
+    }, [current, pageSize, orderBy, sortOrder, selectedType, selectedYear, selectedRegion, searchMovie]);
 
     useEffect(() => {
         loadData();
-    }, [loadData]);
+    }, [loadData, searchMovie]);
 
     const onChangeOrder = (e) => {
         setOrderBy(e.target.value);
@@ -57,13 +61,18 @@ const MoviesPage = () => {
         setPageSize(pageSize);
     };
 
+    const onSearch: SearchProps['onSearch'] = (value, _e, info) => setSearchMovie(value);
+
     return (
         <div style={pageContainerStyle}>
-            <MovieFilterPanel onFilterChange={onFilterChange} />
-            <Radio.Group onChange={onChangeOrder} value={orderBy} style={radioGroupStyle}>
-                <Radio value="createTime">按时间排序</Radio>
-                <Radio value="movieRating">按评分排序</Radio>
-            </Radio.Group>
+            <MovieFilterPanel onFilterChange={onFilterChange}/>
+            <Flex align="self-start" justify="space-between" style={{marginBottom: 12}}>
+                <Radio.Group onChange={onChangeOrder} value={orderBy} style={radioGroupStyle}>
+                    <Radio value="createTime">按时间排序</Radio>
+                    <Radio value="movieRating">按评分排序</Radio>
+                </Radio.Group>
+                <Search placeholder="请输入电影名称" onSearch={onSearch} style={{width: 200}}/>
+            </Flex>
             <Row gutter={[24, 24]} justify="start">
                 {movieList.length > 0 ? (
                     movieList.map((item) => (
@@ -75,7 +84,7 @@ const MoviesPage = () => {
                                     movieId={item.id}
                                     isComing={true}
                                     shoInfo={
-                                        <MovieInfo item={item} />
+                                        <MovieInfo item={item}/>
                                     }
                                 />
                             </Link>
@@ -98,7 +107,7 @@ const MoviesPage = () => {
     );
 };
 
-const MovieInfo = ({ item }) => (
+const MovieInfo = ({item}) => (
     <Space direction="vertical" size="small" style={movieInfoStyle}>
         <p style={textEllipsisStyle}>{item.movieType}</p>
         <p>{item.createTime.substring(0, 10)}</p>
@@ -107,10 +116,10 @@ const MovieInfo = ({ item }) => (
 );
 
 // 样式对象
-const pageContainerStyle = { marginTop: 16 };
-const radioGroupStyle = { marginBottom: 16 };
-const paginationStyle = { marginTop: 16, marginBottom: 16, textAlign: "center" };
-const movieInfoStyle = { display: "flex" };
-const textEllipsisStyle = { textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" };
+const pageContainerStyle = {marginTop: 16};
+const radioGroupStyle = {marginBottom: 16};
+const paginationStyle = {marginTop: 16, marginBottom: 16, textAlign: "center"};
+const movieInfoStyle = {display: "flex"};
+const textEllipsisStyle = {textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap"};
 
 export default MoviesPage;

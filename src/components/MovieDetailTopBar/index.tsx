@@ -3,6 +3,7 @@
 import {Breadcrumb, Button, Image} from "antd";
 import Title from "antd/es/typography/Title";
 import MovieIcon from "../../../public/icon/MovieIcon";
+import Link from "next/link";
 
 interface Props {
     movie: any;
@@ -30,7 +31,9 @@ const MovieDetailTopBar = ({movie}: Props) => {
                                 <Button style={buttonStyle} icon={<MovieIcon type={"icon-shoucang"}/>}>评分</Button>
                             </div>
                             <Button type="primary" size="large" style={ticketButtonStyle}>
-                                立即购票
+                                <Link href={"/cinema"}>
+                                    立即购票
+                                </Link>
                             </Button>
                         </div>
                     </div>
@@ -38,11 +41,11 @@ const MovieDetailTopBar = ({movie}: Props) => {
             </div>
 
             <Breadcrumb
-                style={{ marginBottom: 16, marginTop: 16 }}
+                style={{marginBottom: 16, marginTop: 16}}
                 items={[
-                    { title: '首页', href: '/' },
-                    { title: '电影', href: '/movies' },
-                    { title: movie?.movieTitle || "电影标题" },
+                    {title: '首页', href: '/'},
+                    {title: '电影', href: '/movies'},
+                    {title: movie?.movieTitle || "电影标题"},
                 ]}
             />
         </>
